@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Donate - Don't Dump</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8f5;
+        }
+
+        header {
+            background: #2e7d32;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1b5e20;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back a {
+            color: #2e7d32;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Don't Dump</h1>
+    <p>e-Donation System</p>
+</header>
+
+<div class="container">
+
+    <h2>Donate an Item</h2>
+
+    <form action="/donate" method="POST">
+
+        <label>Donor Name</label>
+        <input type="text" name="name" placeholder="Enter your name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email" required>
+
+        <label>Mobile Number</label>
+        <input type="tel" name="mobile" placeholder="Enter your mobile number" required>
+
+        <label>Item Name</label>
+        <input type="text" name="item" placeholder="Enter item name" required>
+
+        <label>Category</label>
+        <select name="category">
+            <option>Select Category</option>
+            <option>Clothes</option>
+            <option>Books</option>
+            <option>Furniture</option>
+            <option>Electronics</option>
+            <option>Toys</option>
+            <option>Other</option>
+        </select>
+
+        <label>Item Condition</label>
+        <select name="condition">
+            <option>Select Condition</option>
+            <option>New</option>
+            <option>Good</option>
+            <option>Used</option>
+        </select>
+
+        <label>Location</label>
+        <input type="text" name="location" placeholder="Enter your location" required>
+
+        <label>Item Description</label>
+        <textarea name="description" placeholder="Describe the item you want to donate" required></textarea>
+
+        <button type="submit">Submit Donation</button>
+
+    </form>
+
+    <div class="back">
+        <a href="/">← Back to Home</a>
+    </div>
+
+</div>
+
+</body>
+</html
