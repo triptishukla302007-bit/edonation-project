@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Don't Dump</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f8f5;
+        }
+
+        header {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #2e7d32;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: #2e7d32;
+        }
+
+        .number {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .back {
+            margin-top: 30px;
+        }
+
+        .back a {
+            color: #2e7d32;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Don't Dump</h1>
+    <p>Admin Dashboard</p>
+</header>
+
+<div class="container">
+
+    <h2>Dashboard Overview</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Users</h3>
+            <div class="number">{{ total_users }}</div>
+        </div>
+
+        <div class="card">
+            <h3>Total Donations</h3>
+            <div class="number">{{ total_donations }}</div>
+        </div>
+
+    </div>
+
+    <div class="table-container">
+
+        <h2>Donation Records</h2>
+
+        <table>
+
+            <tr>
+                <th>Donor Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Condition</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+
+            {% for donation in donations %}
+
+            <tr>
+                <td>{{ donation["name"] }}</td>
+                <td>{{ donation["email"] }}</td>
+                <td>{{ donation["mobile"] }}</td>
+                <td>{{ donation["item"] }}</td>
+                <td>{{ donation["category"] }}</td>
+                <td>{{ donation["item_condition"] }}</td>
+                <td>{{ donation["location"] }}</td>
+                <td>{{ donation["description"] }}</td>
+                <td>{{ donation["status"] }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+    <div class="table-container">
+
+    <h2>Registered Users</h2>
+
+    <table>
+
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+        </tr>
+
+        {% for user in users %}
+
+        <tr>
+            <td>{{ user["name"] }}</td>
+            <td>{{ user["email"] }}</td>
+            <td>{{ user["mobile"] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+    <div class="back">
+        <a href="/">← Back to Home</a>
+    </div>
+
+</div>
+
+</body>
+</html>
