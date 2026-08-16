@@ -60,6 +60,7 @@
             padding: 20px;
             border-radius: 10px;
             overflow-x: auto;
+            margin-bottom: 30px;
         }
 
         table {
@@ -77,6 +78,31 @@
         th {
             background: #2e7d32;
             color: white;
+        }
+
+        .status-form {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .status-form select {
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .status-form button {
+            padding: 7px 10px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .status-form button:hover {
+            background: #1b5e20;
         }
 
         .back {
@@ -144,7 +170,33 @@
                 <td>{{ donation["item_condition"] }}</td>
                 <td>{{ donation["location"] }}</td>
                 <td>{{ donation["description"] }}</td>
-                <td>{{ donation["status"] }}</td>
+
+                <td>
+                    <form class="status-form"
+                          action="/update_status/{{ donation['id'] }}"
+                          method="POST">
+
+                        <select name="status">
+                            <option value="Pending"
+                                {% if donation["status"] == "Pending" %}selected{% endif %}>
+                                Pending
+                            </option>
+
+                            <option value="Approved"
+                                {% if donation["status"] == "Approved" %}selected{% endif %}>
+                                Approved
+                            </option>
+
+                            <option value="Rejected"
+                                {% if donation["status"] == "Rejected" %}selected{% endif %}>
+                                Rejected
+                            </option>
+                        </select>
+
+                        <button type="submit">Update</button>
+
+                    </form>
+                </td>
             </tr>
 
             {% endfor %}
@@ -152,31 +204,32 @@
         </table>
 
     </div>
+
     <div class="table-container">
 
-    <h2>Registered Users</h2>
+        <h2>Registered Users</h2>
 
-    <table>
+        <table>
 
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+            </tr>
 
-        {% for user in users %}
+            {% for user in users %}
 
-        <tr>
-            <td>{{ user["name"] }}</td>
-            <td>{{ user["email"] }}</td>
-            <td>{{ user["mobile"] }}</td>
-        </tr>
+            <tr>
+                <td>{{ user["name"] }}</td>
+                <td>{{ user["email"] }}</td>
+                <td>{{ user["mobile"] }}</td>
+            </tr>
 
-        {% endfor %}
+            {% endfor %}
 
-    </table>
+        </table>
 
-</div>
+    </div>
 
     <div class="back">
         <a href="/">← Back to Home</a>
