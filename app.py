@@ -1,16 +1,48 @@
 import os
 import sqlite3
+import smtplib
+from email.message import EmailMessage
 
 print("APP FOLDER:", os.getcwd())
 
 from flask import Flask, render_template, request
 from database import create_database
+
 app = Flask(__name__)
 create_database()
+
+
 def get_db_connection():
     conn = sqlite3.connect("edonation.db")
     conn.row_factory = sqlite3.Row
     return conn
+
+
+def send_email(subject, message):
+    email_user = os.environ.get("EMAIL_USER")
+    email_password = os.environ.get("EMAIL_PASSWORD")
+    admin_email = os.environ.get("ADMIN_EMAIL")
+
+    if not email_user or not email_password or not admin_email:
+        print("Email settings are missing.")
+        return
+
+    try:
+        msg = EmailMessage()
+        msg["Subject"] = subject
+        msg["From"] = email_user
+        msg["To"] = admin_email
+        msg.set_content(message)
+
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(email_user, email_password)
+            server.send_message(msg)
+
+        print("Email notification sent successfully.")
+
+    except Exception as e:
+        print("Email notification failed:", e)
 
 
 @app.route("/")
@@ -50,6 +82,23 @@ def donate():
         conn.commit()
         conn.close()
 
+        send_email(
+            "New Donation Received - Don't Dump",
+            f"""A new donation has been submitted.
+
+Donor Name: {name}
+Email: {email}
+Mobile: {mobile}
+Item: {item}
+Category: {category}
+Condition: {condition}
+Location: {location}
+Description: {description}
+
+Status: Pending
+"""
+        )
+
         return f"""
         <h1>Donation Submitted Successfully ❤️</h1>
         <p>Thank you, {name}!</p>
@@ -83,6 +132,16 @@ def register():
 
             conn.commit()
             conn.close()
+
+            send_email(
+                "New User Registration - Don't Dump",
+                f"""A new user has registered.
+
+Name: {name}
+Email: {email}
+Mobile: {mobile}
+"""
+            )
 
             return f"""
             <h1>Registration Successful ❤️</h1>
@@ -193,4 +252,3 @@ def admin():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050)
-    
