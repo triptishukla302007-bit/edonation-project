@@ -4,10 +4,9 @@ import sqlite3
 print("APP FOLDER:", os.getcwd())
 
 from flask import Flask, render_template, request
-
+from database import create_database
 app = Flask(__name__)
-
-
+create_database()
 def get_db_connection():
     conn = sqlite3.connect("edonation.db")
     conn.row_factory = sqlite3.Row
